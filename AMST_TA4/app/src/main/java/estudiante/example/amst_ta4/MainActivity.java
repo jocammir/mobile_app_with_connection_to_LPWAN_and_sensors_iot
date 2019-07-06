@@ -1,3 +1,7 @@
+/**
+ @author: GRUPO DE TRABAJO #1 - Arguello, Cedeño, Gilces, Miranda
+ @version: 1.0
+ **/
 package estudiante.example.amst_ta4;
 
 import android.content.DialogInterface;
@@ -20,18 +24,39 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ @author: GRUPO DE TRABAJO #1 - Arguello, Cedeño, Gilces, Miranda
+ @version: 1.0
+ LA PRESENTE CLASE ES LA PRINCIPAL DEL APLICATIVO, NOS PERMITE INICIAR SESION BASADO EN
+ PETICIONES HTTP.
+ **/
 public class MainActivity extends AppCompatActivity {
-    private RequestQueue mQueue = null; /*COLOA DE SOLICITUDES PARA PETICIONES HTTP*/
-    private String token = null; /*VARIABLE QUE ALMACENA EL TOKEN SOLICITADO*/
+    /*
+    DECLARACIÓN DE VARIABLES
+    mQueue: COLA DE SOLICITUDES PARA PETICIONES HTT.
+    token: VARIABLE QUE ALMACENA EL TOKEN SOLICITADO
+    */
+    private RequestQueue mQueue = null;
+    private String token = null;
 
+    /**
+     @author: GRUPO DE TRABAJO #1 - Arguello, Cedeño, Gilces, Miranda
+     @version: 1.0
+     @description: CREACIÓN DE INSTANCIA
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mQueue = Volley.newRequestQueue(this); /*INCIALIZACION DE LA COLA DE PETICIONES*/
+        /*INCIALIZACION DE LA COLA DE PETICIONES HTTP*/
+        mQueue = Volley.newRequestQueue(this);
     }
 
+    /**
+     @author: GRUPO DE TRABAJO #1
+     @param v Vista
+     @description: CAMBIA DE VISTA SIEMPRE Y CUANDO LA VALIDACION DE LAS CREDENCIALES SEA EXITOSA
+     **/
     public void irMenuPrincipal(View v){
     	/*MATCHING ENTRE OBJETOS LOGICOS Y OBJETOS DE DISEÑO*/
         final EditText usuario = (EditText) findViewById(R.id.txtUsuario);
@@ -49,16 +74,24 @@ public class MainActivity extends AppCompatActivity {
     @author: GRUPO DE TRABAJO #1
     @param usuario NOMBRE DE USUARIO
     @param password CONTRASEÑA INGRESADA POR EL USUARIO
-    METODO ENCARGADA DE LA AUTENTICACION Y AUTIZACION DEL USUARIO INGRESADO PARA EL USO
+    @description: METODO ENCARGADA DE LA AUTENTICACION Y AUTIZACION DEL USUARIO INGRESADO PARA EL USO
     DE LA APLICACION, SE USA EL METODO DE AUTENTICACION BASADA EN TOKEN.
     **/
     private void iniciarSesion(String usuario, String password){
+        /*ESTRUCTURA PARA MODELAR DATOS CLAVE:VALOR*/
+        Map<String, String> params = new HashMap();
 
-        Map<String, String> params = new HashMap(); /*ESTRUCTURA PARA MODELAR DATOS CLAVE:VALOR*/
-        params.put("username", usuario); /*AÑADE LA CLAVE USERNAME CON VALOR USUARIO*/
-        params.put("password", password); /*AÑADE LA CLAVE PASSWORD CON VALOR PASSWORD*/
-        JSONObject parametros = new JSONObject(params); /*CREACION DE OBJETO JSON A PARTIR DE LA ESTRUCTURA PARAMS*/
-        String login_url = "https://amstdb.herokuapp.com/db/nuevo-jwt"; /*URL QUE PERMITE LA SOLICITUD DEL TOKEN*/
+        /*AÑADE LA CLAVE USERNAME CON VALOR USUARIO*/
+        params.put("username", usuario);
+
+        /*AÑADE LA CLAVE PASSWORD CON VALOR PASSWORD*/
+        params.put("password", password);
+
+        /*CREACION DE OBJETO JSON A PARTIR DE LA ESTRUCTURA PARAMS*/
+        JSONObject parametros = new JSONObject(params);
+
+        /*URL QUE PERMITE LA SOLICITUD DEL TOKEN*/
+        String login_url = "https://amstdb.herokuapp.com/db/nuevo-jwt";
 
         /*SOLICITUD FORMATEADA EN FORMATO JSON, COMO RESULTADO SE GENERA UN TOKEN SEGUN EL USUARIO ENVIADO AL SERVIDOR
         ADICIONALMENTE SE ALMACENA EL TOKEN PARA QUE LAS DEMAS ACTIVIDADES VERIFIQUEN EL TOKEN*/
@@ -93,9 +126,13 @@ public class MainActivity extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         });
-                alertDialog.show();/*MUESTRA EL MENSAJE DE ERROR*/
+
+                /*MUESTRA EL MENSAJE DE ERROR*/
+                alertDialog.show();
             }
         });
-        mQueue.add(request);/*AGREGA LA SOLICITUD A LA COLA DE PETICIONES*/
+
+        /*AGREGA LA SOLICITUD A LA COLA DE PETICIONES*/
+        mQueue.add(request);
     }
 }
