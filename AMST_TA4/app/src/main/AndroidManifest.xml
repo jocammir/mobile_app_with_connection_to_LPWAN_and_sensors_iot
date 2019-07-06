@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="estudiante.example.amst_ta4">
+    <!--ETIQUETA QUE PERMITE EL USO DE INTERNET A LA APLICACION-->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
